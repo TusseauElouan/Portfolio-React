@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProfileImage from '../assets/profile-Elouan-Tusseau.png';
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Lock, Building } from 'lucide-react';
+import { MapPin, Building } from 'lucide-react';
 
 
 
@@ -116,55 +116,84 @@ function Header() {
             </motion.div>
             )}
         </AnimatePresence>
-        <section id="accueil" className="container mx-auto px-6 py-16 min-h-dvh flex flex-col md:flex-row items-center justify-center gap-12">
-          <div className="flex-shrink-0">
-            <img 
-              src={ProfileImage} 
-              alt="Elouan Tusseau" 
-              className="rounded-full w-48 h-48 md:w-64 md:h-64 border-4 border-indigo-500 shadow-lg shadow-indigo-600/50"
-            />
+        <section
+      id="accueil"
+      className="container mx-auto px-6 py-16 min-h-dvh flex flex-col md:flex-row items-center justify-center gap-12"
+    >
+      <motion.div
+        className="flex-shrink-0"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <img
+          src={ProfileImage}
+          alt="Elouan Tusseau"
+          className="rounded-full w-48 h-48 md:w-64 md:h-64 border-4 border-indigo-500 shadow-lg shadow-indigo-600/50"
+        />
+      </motion.div>
+
+      <motion.div
+        className="flex-1 max-w-2xl text-center md:text-left space-y-6"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
+        <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-400">
+          Découvrez mon univers numérique !
+        </h1>
+
+        <p className="text-gray-300 text-lg leading-relaxed">
+          <span className="text-white font-bold">
+            Bonjour, je m'appelle <span className="text-indigo-400">Elouan</span>,
+          </span>
+          j'ai <span className="font-semibold text-white">19 ans</span> et je suis
+          <span className="text-indigo-400 font-bold"> développeur web et application !</span>
+        </p>
+
+        <motion.div
+          className="space-y-4 text-gray-400 text-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className="flex items-center">
+            <MapPin className="h-6 w-6 text-indigo-400 mr-2" />
+            <span>
+              Actuellement en alternance chez <span className="font-semibold text-white">Paprec</span>
+            </span>
           </div>
-          
-          <div className="flex-1 max-w-2xl text-center md:text-left space-y-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-400">
-              Découvrez mon univers numérique !
-            </h1>
-            
-            <p className="text-gray-300 text-lg leading-relaxed">
-              <span className="text-white font-bold">Bonjour, je m'appelle <span className="text-indigo-400">Elouan</span>, </span> 
-              j'ai <span className="font-semibold text-white">19 ans</span> et je suis 
-              <span className="text-indigo-400 font-bold"> développeur web et application !</span>
-            </p>
-            
-            <div className="space-y-4 text-gray-400 text-lg">
-              <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-indigo-400 mr-2" />
-                <span>Actuellement en alternance chez <span className="font-semibold text-white">Paprec</span></span>
-              </div>
-              <div className="flex items-center">
-                <Building className="h-6 w-6 text-indigo-400 mr-2" />
-                <span>Étudiant à l'<span className="font-semibold text-white">Institut Informatique Appliqué de Saint-Nazaire</span></span>
-              </div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-              <a 
-                href="#contact" 
-                className="px-6 py-3 bg-indigo-500 text-white rounded-lg shadow-md hover:bg-indigo-600 transition duration-300"
-              >
-                Me contacter
-              </a>
-              <a 
-                href="https://linkedin.com/in/elouan-tusseau-a4a7932a0/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="px-6 py-3 border-2 border-indigo-500 text-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 hover:text-white transition duration-300"
-              >
-                Voir mon LinkedIn
-              </a>
-            </div>
+          <div className="flex items-center">
+            <Building className="h-6 w-6 text-indigo-400 mr-2" />
+            <span>
+              Étudiant à l'<span className="font-semibold text-white">Institut Informatique Appliqué de Saint-Nazaire</span>
+            </span>
           </div>
-        </section>
+        </motion.div>
+
+        <motion.div
+          className="flex flex-col sm:flex-row justify-center md:justify-start gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <a
+            href="#contact"
+            className="px-6 py-3 bg-indigo-500 text-white rounded-lg shadow-md hover:bg-indigo-600 transition duration-300"
+          >
+            Me contacter
+          </a>
+          <a
+            href="https://linkedin.com/in/elouan-tusseau-a4a7932a0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 border-2 border-indigo-500 text-indigo-400 rounded-lg shadow-md hover:bg-indigo-500 hover:text-white transition duration-300"
+          >
+            Voir mon LinkedIn
+          </a>
+        </motion.div>
+      </motion.div>
+    </section>
       </div>
     </header>
   );
