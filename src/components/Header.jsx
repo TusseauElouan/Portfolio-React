@@ -13,8 +13,8 @@ function Header() {
 
     const navLinks = [
         { href: '#accueil', label: 'Accueil' },
-        { href: '#skillsSection', label: 'Compétences' },
         { href: '#experienceSection', label: 'Parcours' },
+        { href: '#skillsSection', label: 'Compétences' },
         { href: '#projectsSection', label: 'Projets' }
       ];
 
@@ -145,10 +145,9 @@ function Header() {
 
         <p className="text-gray-300 text-lg leading-relaxed">
           <span className="text-white font-bold">
-            Bonjour, je m'appelle <span className="text-indigo-400">Elouan</span>,
-          </span>
-          j'ai <span className="font-semibold text-white">19 ans</span> et je suis
+            Bonjour, je m'appelle <span className="text-indigo-400">Elouan</span>, j'ai <span className="font-semibold text-white">19 ans</span> et je suis
           <span className="text-indigo-400 font-bold"> développeur web et application !</span>
+          </span>
         </p>
 
         <motion.div
