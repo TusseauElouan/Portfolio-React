@@ -25,10 +25,10 @@ function Footer() {
                 <Mail className="h-5 w-5 text-indigo-400 mr-2" />
                 <span>
                   <a 
-                    href="mailto:contact@elouan-tusseau.com" 
+                    href="mailto:tusseauelouan@gmail.com" 
                     className="hover:underline"
                   >
-                    contact@elouan-tusseau.com
+                    tusseauelouan@gmail.com
                   </a>
                 </span>
               </li>
@@ -36,7 +36,7 @@ function Footer() {
                 <Linkedin className="h-5 w-5 text-indigo-400 mr-2" />
                 <span>
                   <a 
-                    href="https://www.linkedin.com/in/elouan-tusseau/" 
+                    href="https://www.linkedin.com/in/elouan-tusseau-a4a7932a0/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="hover:underline"
@@ -46,28 +46,6 @@ function Footer() {
                 </span>
               </li>
             </ul>
-          </div>
-          
-          {/* Formulaire de contact (optionnel) */}
-          <div className="space-y-4">
-            <h3 className="text-3xl font-bold">Liens Rapides</h3>
-            <div className="flex flex-col space-y-2">
-              {[
-                { label: 'Accueil', href: '#' },
-                { label: 'À propos', href: '#aboutSection' },
-                { label: 'Compétences', href: '#skillsSection' },
-                { label: 'Parcours', href: '#experienceSection' },
-                { label: 'Projets', href: '#projectsSection' }
-              ].map((link, index) => (
-                <a 
-                  key={index} 
-                  href={link.href} 
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
         

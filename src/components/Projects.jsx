@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Code, ExternalLink, X } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Code, ExternalLink, X, ZoomIn, ZoomOut, Move } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const projectsData = [
   {
@@ -65,9 +65,200 @@ const projectsData = [
   // Ajoutez plus de projets ici
 ];
 
+// Composant pour afficher l'image en plein écran avec zoom
+// Composant simple pour afficher l'image en plein écran avec zoom
+const ImageModal = ({ image, onClose }) => {
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  
+  useEffect(() => {
+    // Empêcher le défilement du corps quand la modal est ouverte
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+  
+  const zoomIn = (e) => {
+    e?.stopPropagation();
+    setScale(prev => Math.min(prev + 0.5, 5));
+  };
+  
+  const zoomOut = (e) => {
+    e?.stopPropagation();
+    setScale(prev => Math.max(prev - 0.5, 1));
+  };
+  
+  const resetZoom = (e) => {
+    e?.stopPropagation();
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  };
+  
+  // Gestion du déplacement avec la souris
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    if (scale > 1) {
+      setIsDragging(true);
+      setDragStart({
+        x: e.clientX - position.x,
+        y: e.clientY - position.y
+      });
+    }
+  };
+  
+  const handleMouseMove = (e) => {
+    if (isDragging && scale > 1) {
+      e.preventDefault();
+      setPosition({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y
+      });
+    }
+  };
+  
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+  
+  // Gestion du déplacement sur mobile
+  const handleTouchStart = (e) => {
+    if (scale > 1) {
+      setIsDragging(true);
+      setDragStart({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y
+      });
+    }
+  };
+  
+  const handleTouchMove = (e) => {
+    if (isDragging && scale > 1) {
+      setPosition({
+        x: e.touches[0].clientX - dragStart.x,
+        y: e.touches[0].clientY - dragStart.y
+      });
+    }
+  };
+  
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+  
+  // Zoom avec double-clic ou molette
+  const handleDoubleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (scale === 1) {
+      setScale(2.5);
+      // Centrer le zoom
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) - (rect.width / 2)) * 0.6;
+      const y = ((e.clientY - rect.top) - (rect.height / 2)) * 0.6;
+      setPosition({ x, y });
+    } else {
+      resetZoom(e);
+    }
+  };
+  
+  const handleWheel = (e) => {
+    e.preventDefault();
+    if (e.deltaY < 0) {
+      setScale(prev => Math.min(prev + 0.2, 5));
+    } else {
+      setScale(prev => Math.max(prev - 0.2, 1));
+    }
+  };
+  
+  return (
+    <div 
+      className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-50"
+      onClick={onClose}
+    >
+      {/* Boutons de contrôle */}
+      <div 
+        className="absolute top-4 right-4 flex gap-2 z-50"
+        onClick={e => e.stopPropagation()}
+      >
+        <button 
+          onClick={zoomIn}
+          className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+          aria-label="Zoom in"
+        >
+          <ZoomIn className="h-6 w-6 text-white" />
+        </button>
+        <button 
+          onClick={zoomOut}
+          className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+          aria-label="Zoom out"
+        >
+          <ZoomOut className="h-6 w-6 text-white" />
+        </button>
+        <button 
+          onClick={resetZoom}
+          className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+          aria-label="Reset zoom"
+        >
+          <Move className="h-6 w-6 text-white" />
+        </button>
+        <button 
+          onClick={onClose}
+          className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+          aria-label="Close"
+        >
+          <X className="h-6 w-6 text-white" />
+        </button>
+      </div>
+      
+      {/* Conteneur d'image */}
+      <div 
+        className="w-full h-full flex items-center justify-center overflow-hidden"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onDoubleClick={handleDoubleClick}
+        onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onClick={e => e.stopPropagation()}
+      >
+        <div 
+          className="relative"
+          style={{
+            transformOrigin: 'center',
+            transform: `scale(${scale}) translate(${position.x / scale}px, ${position.y / scale}px)`,
+            transition: isDragging ? 'none' : 'transform 0.2s ease-out'
+          }}
+        >
+          <img 
+            src={image.src} 
+            alt={image.alt}
+            className="max-w-full max-h-[80vh] object-contain select-none"
+            draggable="false"
+          />
+        </div>
+      </div>
+      
+      {/* Description de l'image */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white bg-black/70 py-2 px-4">
+        <p className="text-sm">{image.description}</p>
+        <p className="text-xs mt-1 text-gray-400">
+          Molette pour zoomer, double-clic pour zoomer/dézoomer, glissez pour déplacer
+        </p>
+      </div>
+    </div>
+  );
+};
+
 function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState(null);
 
   // Fonction pour naviguer entre les images
   const nextImage = () => {
@@ -89,6 +280,14 @@ function Projects() {
   const handleOpenProject = (project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0); // Réinitialiser l'index d'image à 0 quand un nouveau projet est sélectionné
+  };
+  
+  const handleImageClick = (image) => {
+    setFullscreenImage(image);
+  };
+  
+  const closeFullscreenImage = () => {
+    setFullscreenImage(null);
   };
 
   return (
@@ -142,88 +341,113 @@ function Projects() {
         </div>
 
         {/* Modal pour les détails du projet avec galerie d'images */}
-        {selectedProject && (
-            <motion.div 
-              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+        <AnimatePresence>
+          {selectedProject && (
+              <motion.div 
+                className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40 p-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedProject(null)}
+              >
+              <motion.div 
+                className="bg-gray-900 p-6 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()} // Empêche la fermeture lors du clic sur le contenu
+              >
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-3xl font-bold text-white">{selectedProject.title}</h2>
+                    <button 
+                      onClick={() => setSelectedProject(null)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+                  
+                  <p className="text-gray-300 mb-6">{selectedProject.description}</p>
+                  
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-3">Technologies</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologies.map((tech, techIndex) => (
+                        <span 
+                          key={techIndex} 
+                          className="px-3 py-1 bg-indigo-500/30 text-indigo-300 rounded-md text-sm"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {selectedProject.images && selectedProject.images.length > 0 && (
+                    <div className="mb-6">
+                      <h3 className="text-xl font-semibold text-white mb-3">Galerie</h3>
+                      <div className="relative">
+                        <div 
+                          className="overflow-hidden rounded-lg mb-2 bg-black cursor-pointer relative group"
+                          onClick={() => handleImageClick(selectedProject.images[currentImageIndex])}
+                        >
+                          <img 
+                            src={selectedProject.images[currentImageIndex].src} 
+                            alt={selectedProject.images[currentImageIndex].alt}
+                            className="w-full h-auto object-contain max-h-96"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
+                            <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-150" />
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-300 text-sm italic mb-4">
+                          {selectedProject.images[currentImageIndex].description}
+                        </p>                        
+                        {selectedProject.images.length > 1 && (
+                          <div className="flex justify-between items-center">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                              className="bg-indigo-500/20 hover:bg-indigo-500/40 text-white px-4 py-2 rounded-lg transition-colors"
+                            >
+                              Précédent
+                            </button>
+                            <span className="text-gray-400">
+                              {currentImageIndex + 1} / {selectedProject.images.length}
+                            </span>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                              className="bg-indigo-500/20 hover:bg-indigo-500/40 text-white px-4 py-2 rounded-lg transition-colors"
+                            >
+                              Suivant
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* Modal pour l'image en plein écran */}
+        <AnimatePresence>
+          {fullscreenImage && (
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
+              transition={{ duration: 0.2 }}
             >
-            <motion.div 
-              className="bg-gray-900 p-6 rounded-xl max-w-3xl w-full"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()} // Empêche la fermeture lors du clic sur le contenu
-            >
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-3xl font-bold text-white">{selectedProject.title}</h2>
-                  <button 
-                    onClick={() => setSelectedProject(null)}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <X className="h-6 w-6" />
-                  </button>
-                </div>
-                
-                <p className="text-gray-300 mb-6">{selectedProject.description}</p>
-                
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-white mb-3">Technologies</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech, techIndex) => (
-                      <span 
-                        key={techIndex} 
-                        className="px-3 py-1 bg-indigo-500/30 text-indigo-300 rounded-md text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                {selectedProject.images && selectedProject.images.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-white mb-3">Galerie</h3>
-                    <div className="relative">
-                      <div className="overflow-hidden rounded-lg mb-2 bg-black">
-                        <img 
-                          src={selectedProject.images[currentImageIndex].src} 
-                          alt={selectedProject.images[currentImageIndex].alt}
-                          className="w-full h-auto object-contain max-h-96"
-                        />
-                      </div>
-                      
-                      <p className="text-gray-300 text-sm italic mb-4">
-                        {selectedProject.images[currentImageIndex].description}
-                      </p>
-                      
-                      {selectedProject.images.length > 1 && (
-                        <div className="flex justify-between items-center">
-                          <button 
-                            onClick={prevImage}
-                            className="bg-indigo-500/20 hover:bg-indigo-500/40 text-white px-4 py-2 rounded-lg transition-colors"
-                          >
-                            Précédent
-                          </button>
-                          <span className="text-gray-400">
-                            {currentImageIndex + 1} / {selectedProject.images.length}
-                          </span>
-                          <button 
-                            onClick={nextImage}
-                            className="bg-indigo-500/20 hover:bg-indigo-500/40 text-white px-4 py-2 rounded-lg transition-colors"
-                          >
-                            Suivant
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+              <ImageModal 
+                image={fullscreenImage} 
+                onClose={closeFullscreenImage} 
+              />
             </motion.div>
-          </motion.div>
-        )}
+          )}
+        </AnimatePresence>
         </section>
     </div>
   );
