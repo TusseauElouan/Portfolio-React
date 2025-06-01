@@ -2,6 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Code, ExternalLink, X, ZoomIn, ZoomOut, Move } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Import de toutes les images
+import helphubAccueil from '../assets/helphup-accueil.png';
+import helphubCreationTicket from '../assets/helphub-creation-ticket.png';
+import helphubTicketCree from '../assets/helphub-ticket-cree.png';
+import helphubMessagerie from '../assets/helphub-messagerie.png';
+import paiementListePaiements from '../assets/paiement-securise-liste-paiements.png';
+import paiementPaiement from '../assets/paiement-securise-paiement.png';
+import paiementRemboursement from '../assets/paiement-securise-remboursement.png';
+import paiementListePaiementsDiff from '../assets/paiement-securise-liste-paiements-diff.png';
+import paiementListePaiementsClient from '../assets/paiement-securise-liste-paiements-client.png';
+
 const projectsData = [
   {
     title: "HelpHub",
@@ -9,22 +20,22 @@ const projectsData = [
     technologies: ["HTML", "CSS", "PHP", "MySQL"],
     images: [
       {
-        src: "./src/assets/helphup-accueil.png",
+        src: helphubAccueil, // ✅ Utilisation de l'import
         alt: "Dashboard de HelpHub",
         description: "Interface principale du tableau de bord administrateur"
       },
       {
-        src: "./src/assets/helphub-creation-ticket.png",
+        src: helphubCreationTicket, // ✅ Utilisation de l'import
         alt: "Création de ticket HelpHub",
         description: "Interface de création de ticket, avec un formulaire dynamique."
       },
       {
-        src: "./src/assets/helphub-ticket-cree.png",
+        src: helphubTicketCree, // ✅ Utilisation de l'import
         alt: "Ticket créé HelpHub",
         description: "Ticket créé avec succès, voici le visuel côté client."
       },
       {
-        src: "./src/assets/helphub-messagerie.png",
+        src: helphubMessagerie, // ✅ Utilisation de l'import
         alt: "Ticket de HelpHub",
         description: "Messagerie du tickets en question en administrateur, avec administration du ticket sur le côté droit." 
       }
@@ -36,27 +47,27 @@ const projectsData = [
     technologies: ["Laravel", "PHP", "TailwindCSS", "MySQL"],
     images: [
       {
-        src: "./src/assets/paiement-securise-liste-paiements.png",
+        src: paiementListePaiements, // ✅ Utilisation de l'import
         alt: "Liste des paiements",
         description: "Liste des paiements effectués, avec possibilité de les rembourser."
       },
       {
-        src: "./src/assets/paiement-securise-paiement.png",
+        src: paiementPaiement, // ✅ Utilisation de l'import
         alt: "Création d'un paiement",
         description: "Interface de création d'un paiement, avec un formulaire dynamique."
       },
       {
-        src: "./src/assets/paiement-securise-remboursement.png",
+        src: paiementRemboursement, // ✅ Utilisation de l'import
         alt: "Remboursement d'un paiement",
         description: "Interface de remboursement d'un paiement, soit partiel, soit entièrement."
       },
       {
-        src: "./src/assets/paiement-securise-liste-paiements-diff.png",
+        src: paiementListePaiementsDiff, // ✅ Utilisation de l'import
         alt: "Liste des paiements après les manips",
         description: "Liste des paiements après les manipulations, avec un paiement remboursé et un autre en attente de remboursement." 
       },
       {
-        src: "./src/assets/paiement-securise-liste-paiements-client.png",
+        src: paiementListePaiementsClient, // ✅ Utilisation de l'import
         alt: "Liste des paiements côté client",
         description: "Liste des paiements côté client, sans possibilité de rembourser un paiement."
       }
@@ -66,7 +77,6 @@ const projectsData = [
 ];
 
 // Composant pour afficher l'image en plein écran avec zoom
-// Composant simple pour afficher l'image en plein écran avec zoom
 const ImageModal = ({ image, onClose }) => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
