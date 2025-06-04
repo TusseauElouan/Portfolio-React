@@ -74,12 +74,20 @@ const projectsData = [
     ]
   },
   {
+    title: "Réalisation de sites vitrine",
+    description: "En se basant sur une maquette de référence, ainsi que sur les codes couleurs et les images fournis, il s’agissait de reproduire les maquettes demandées.",
+    technologies: ["HTML", "CSS"]
+  },
+  {
     title: "Endeavour",
     description: "Application qui vise à simplifier le travail des chauffeurs Paprec, grâce à la digitalisation.",
-    technologies: ["C#", ".NET 9", "MAUI", "Xunit"]
+    technologies: ["C#", ".NET 9", "MAUI"]
+  },
+  {
+    title: "µShamrock",
+    description: "Application métier qui permet de scanner des QRcode ou code-barre de lots, pour inventorier, faire des bons de livraisons ou faire des bons de transfert.",
+    technologies: ["C#", ".NET 9", "MAUI"]
   }
-    
-
   // Ajoutez plus de projets ici
 ];
 
