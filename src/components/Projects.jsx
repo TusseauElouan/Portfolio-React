@@ -15,6 +15,11 @@ import paiementListePaiementsClient from '../assets/paiement-securise-liste-paie
 
 const projectsData = [
   {
+    title: "Réalisation de sites vitrine",
+    description: "En se basant sur une maquette de référence, ainsi que sur les codes couleurs et les images fournis, il s’agissait de reproduire les maquettes demandées.",
+    technologies: ["HTML", "CSS"]
+  },
+  {
     title: "HelpHub",
     description: "Application de gestion de tickets.",
     technologies: ["HTML", "CSS", "PHP", "MySQL"],
@@ -72,11 +77,6 @@ const projectsData = [
         description: "Liste des paiements côté client, sans possibilité de rembourser un paiement."
       }
     ]
-  },
-  {
-    title: "Réalisation de sites vitrine",
-    description: "En se basant sur une maquette de référence, ainsi que sur les codes couleurs et les images fournis, il s’agissait de reproduire les maquettes demandées.",
-    technologies: ["HTML", "CSS"]
   },
   {
     title: "Endeavour",
