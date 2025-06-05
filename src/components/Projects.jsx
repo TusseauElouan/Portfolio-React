@@ -22,7 +22,7 @@ const projectsData = [
   {
     title: "HelpHub",
     description: "Application de gestion de tickets.",
-    technologies: ["HTML", "CSS", "PHP", "MySQL"],
+    technologies: ["HTML", "CSS", "PHP", "MySQL", "GitHub"],
     images: [
       {
         src: helphubAccueil, // ✅ Utilisation de l'import
@@ -49,7 +49,7 @@ const projectsData = [
   {
     title: "Paiement Sécurisé",
     description: "Application de paiement sécurisé sans utilisations d'un service tiers.",
-    technologies: ["Laravel", "PHP", "TailwindCSS", "MySQL"],
+    technologies: ["Laravel", "PHP", "TailwindCSS", "MySQL", "GitHub"],
     images: [
       {
         src: paiementListePaiements, // ✅ Utilisation de l'import
@@ -81,12 +81,12 @@ const projectsData = [
   {
     title: "Endeavour",
     description: "Application qui vise à simplifier le travail des chauffeurs Paprec, grâce à la digitalisation.",
-    technologies: ["C#", ".NET 9", "MAUI"]
+    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps"]
   },
   {
     title: "µShamrock",
     description: "Application métier qui permet de scanner des QRcode ou code-barre de lots, pour inventorier, faire des bons de livraisons ou faire des bons de transfert.",
-    technologies: ["C#", ".NET 9", "MAUI"]
+    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps"]
   }
   // Ajoutez plus de projets ici
 ];
