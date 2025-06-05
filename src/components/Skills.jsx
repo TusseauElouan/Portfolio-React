@@ -18,7 +18,7 @@ const technicalSkills = {
   },
   'Outils & DevOps': {
     icon: <GitBranch className="h-8 w-8 text-indigo-500" />, 
-    skills: ['Git', 'Docker', 'CI/CD']
+    skills: ['Git', 'Docker', 'CI/CD', 'AzureDevOps']
   }
 };
 
