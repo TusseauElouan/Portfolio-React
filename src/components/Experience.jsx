@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const experienceData = [
-  { title: "Expérience professionnel", description: "Alternant chez chez Paprec suite à un stage. Développement mobile sous .NET MAUI." },
+  { title: "Expérience professionnel", description: "Alternant chez Paprec suite à un stage. Développement mobile sous .NET MAUI." },
   { title: "École", description: "Arrivé dans l'école de l'Institut Informations Appliquée en septembre 2023. Pour un BTS SIO option SLAM." },
   { title: "Diplômes", description: "Obtention du BAC en juillet 2023. Spécialitées : NSI et Mathématiques. Obtention du brevet en juillet 2020." },
 ];
