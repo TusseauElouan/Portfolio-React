@@ -10,7 +10,7 @@ import {
 const technicalSkills = {
   'Développement Web': {
     icon: <Code className="h-8 w-8 text-indigo-500" />, 
-    skills: ['HTML', 'CSS', 'JavaScript']
+    skills: ['HTML', 'CSS', 'JavaScript', 'TailwindCSS']
   },
   'Back-end & Bases de Données': {
     icon: <Server className="h-8 w-8 text-indigo-500" />, 

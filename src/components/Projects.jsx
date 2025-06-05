@@ -81,12 +81,12 @@ const projectsData = [
   {
     title: "Endeavour",
     description: "Application qui vise à simplifier le travail des chauffeurs Paprec, grâce à la digitalisation.",
-    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps"]
+    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps", "CI/CD"]
   },
   {
     title: "µShamrock",
     description: "Application métier qui permet de scanner des QRcode ou code-barre de lots, pour inventorier, faire des bons de livraisons ou faire des bons de transfert.",
-    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps"]
+    technologies: ["C#", ".NET 9", "MAUI", "AzureDevOps", "CI/CD"]
   }
   // Ajoutez plus de projets ici
 ];
