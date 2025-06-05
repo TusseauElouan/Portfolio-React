@@ -24,7 +24,7 @@ function Header() {
         <nav className="fixed w-full top-0 py-4 px-6 bg-gray-900/80 backdrop-blur-md flex justify-between items-center z-50 shadow-lg shadow-gray-800/30">
             {/* Logo */}
             <a href="#" className="text-white text-2xl font-semibold tracking-wide">
-            Mon<span className="text-indigo-400"> Portfolio</span>
+            Elouan<span className="text-indigo-400"> Tusseau</span>
             </a>
 
             {/* Desktop Menu */}
